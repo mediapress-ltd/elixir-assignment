@@ -16,6 +16,14 @@ within Elixir to build GraphQL APIs.
 
 ## Expected API
 
+The way it should work is as follows:
+
+- a user sends the GrapQL query to the server (Absinthe)
+- the server send the request to the REST API from Dark Sky (Tesla)
+- the server responds to the user with the data from DarkSky in the GrapQL format 
+
+You can go ahead and create your own API key on  https://darksky.net/dev (it’s free)
+
 An example query and input can be found below. Think carefully of what type a field could be.
 
 > Amsterdam: 52.3667° N, 4.8945° E
