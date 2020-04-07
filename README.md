@@ -19,10 +19,10 @@ within Elixir to build GraphQL APIs.
 The way it should work is as follows:
 
 - a user sends the GrapQL query to the server (Absinthe)
-- the server send the request to the REST API from Dark Sky (Tesla)
-- the server responds to the user with the data from DarkSky in the GrapQL format 
+- the server send the request to the REST API from OpenWeatherMap (Tesla)
+- the server responds to the user with the data from OpenWeatherMap in the GrapQL format 
 
-You can go ahead and create your own API key on  https://darksky.net/dev (it’s free)
+You can go ahead and create your own API key on https://openweathermap.org/api/one-call-api (it’s free)
 
 An example query and input can be found below. Think carefully of what type a field could be.
 
@@ -45,21 +45,31 @@ Query:
 query WeatherForecast($input: CoordinateInput!) {
   weatherForecast(input: $input) {
     date
-    type
-    description
+    sunrise
+    sunset
     temperature
-    wind {
-      speed
-      bearing
+    feelsLike
+    weather {
+      main
+      description
     }
-    precipitationProbability
     daily {
       date
-      type
-      description
+      pressure
+      humidity
       temperature {
-        low
-        high
+        day
+        min
+        max
+        night
+        evening
+        morning
+      }
+      feelsLike {
+        day
+        night
+        evening
+        morning
       }
     }
   }
