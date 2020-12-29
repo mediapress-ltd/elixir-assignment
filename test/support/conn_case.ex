@@ -28,7 +28,7 @@ defmodule AssignmentWeb.ConnCase do
     end
   end
 
-  setup tags do
+  setup _tags do
     # :ok = Ecto.Adapters.SQL.Sandbox.checkout(Assignment.Repo)
 
     # unless tags[:async] do

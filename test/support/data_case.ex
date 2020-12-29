@@ -22,9 +22,13 @@ defmodule Assignment.DataCase do
     end
   end
 
-  setup tags do
-    Tesla.Mock.mock(fn request ->
-      %Tesla.Env{status: 200, body: mock_body()}
+  setup do
+    Tesla.Mock.mock(fn
+      %{query: [lat: 0.0, lon: 0.0, appid: _, exclude: _]} ->
+        %Tesla.Env{status: 400, body: "we dont' care"}
+
+      _request ->
+        %Tesla.Env{status: 200, body: mock_body()}
     end)
 
     {:ok, lat: 52.3667, lon: 4.8945}

@@ -77,5 +77,47 @@ defmodule AssignmentWeb.Schema.Query.WeatherForecastTest do
         "night" => 277.46
       }
     }
- end
+  end
+
+  @query """
+  query WeatherForecast($input: CoordinateInput){
+    weatherForecast(input: $input) {
+      temperature
+    }
+  }
+  """
+  @variables %{input: %{"latitude" => "52.36", "longitude" => "4.89"}}
+  test "weatherForecast invalidates string input" do
+    conn = build_conn()
+    conn = post conn, "/api", query: @query, variables: @variables
+
+    resp = json_response(conn, 200)
+    [error] = resp["errors"]
+
+    assert String.starts_with?(
+      error["message"],
+      "Argument \"input\" has invalid value $input."
+    )
+  end
+
+  @query """
+  query WeatherForecast($input: CoordinateInput){
+    weatherForecast(input: $input) {
+      temperature
+    }
+  }
+  """
+  @variables %{input: %{"latitude" => 0.0, "longitude" => 0.0}}
+  test "weatherForecast returns error message when unsuccesful" do
+    conn = build_conn()
+    conn = post conn, "/api", query: @query, variables: @variables
+
+    resp = json_response(conn, 200)
+    [error] = resp["errors"]
+
+    assert String.starts_with?(
+      error["message"],
+      "An error occured while fetching weather data."
+    )
+  end
 end

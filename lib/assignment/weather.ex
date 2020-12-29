@@ -17,6 +17,9 @@ defmodule Assignment.Weather do
     with {:ok, resp} <- @client.get_by_geolocation(lat, lon),
          {:ok, body} <- @client.get_body(resp) do
       {:ok, @formatter.format(body)}
+    else
+      :error ->
+        {:error, "An error occured while fetching weather data."}
     end
   end
 end
