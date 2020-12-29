@@ -38,8 +38,8 @@ defmodule AssignmentWeb.Schema.Query.WeatherForecastTest do
   """
   @variables %{
     input: %{
-      "latitude" => "52.3667",
-      "longitude" => "4.8945"
+      "latitude" => 52.3667,
+      "longitude" => 4.8945
     }
   }
   test "weatherForecast returns current weather with daily forecasts" do

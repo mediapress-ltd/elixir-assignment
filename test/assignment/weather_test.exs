@@ -4,7 +4,7 @@ defmodule Assignment.WeatherTest do
   alias Assignment.Weather
 
   test "get forecast by geolocation", %{lat: lat, lon: lon} do
-    {:ok, weather} = Weather.get_forecast_by_geolocation(lat, lon)
+    {:ok, weather} = Weather.get_weather_by_geolocation(lat, lon)
 
     assert weather.date == 1_609_238_999
     assert weather.feels_like == 273.36

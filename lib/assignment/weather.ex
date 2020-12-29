@@ -1,52 +1,22 @@
 defmodule Assignment.Weather do
-  alias Assignment.OpenWeather
+  @moduledoc """
+  The Weather Context
+  """
 
-  def get_forecast_by_geolocation(lat, lon) do
-    with {:ok, resp} <- OpenWeather.get_by_geolocation(lat, lon),
-         {:ok, body} <- OpenWeather.get_body(resp) do
-      {:ok, format(body)}
+  # plug n' play weather data provider client
+  @client Assignment.OpenweatherClient
+
+  # plug n' play weather data formatter
+  @formatter Assignment.OpenweatherFormatter
+
+  @doc """
+  Retrieves weather information by latitude and longitude.
+  """
+  @spec get_weather_by_geolocation(float, float) :: map
+  def get_weather_by_geolocation(lat, lon) do
+    with {:ok, resp} <- @client.get_by_geolocation(lat, lon),
+         {:ok, body} <- @client.get_body(resp) do
+      {:ok, @formatter.format(body)}
     end
-  end
-
-  defp format(%{"current" => current, "daily" => daily}) do
-    %{
-      date: current["dt"],
-      sunrise: current["sunrise"],
-      sunset: current["sunset"],
-      temperature: current["temp"],
-      feels_like: current["feels_like"],
-      weather: Enum.map(current["weather"], &format_weather/1),
-      daily: Enum.map(daily, &format_daily/1)
-    }
-  end
-
-  defp format_weather(weather) do
-    %{
-      id: weather["id"],
-      icon: weather["icon"],
-      main: weather["main"],
-      description: weather["description"]
-    }
-  end
-
-  defp format_daily(daily) do
-    %{
-      date: daily["dt"],
-      pressure: daily["pressure"],
-      humidity: daily["humidity"],
-      temperature: format_temperature(daily["temp"]),
-      feels_like: format_temperature(daily["feels_like"]),
-    }
-  end
-
-  defp format_temperature(temperature) do
-    %{
-      day: temperature["day"],
-      min: temperature["min"],
-      max: temperature["max"],
-      night: temperature["night"],
-      evening: temperature["eve"],
-      morning: temperature["morn"]
-    }
   end
 end
