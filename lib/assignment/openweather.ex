@@ -1,14 +1,14 @@
 defmodule Assignment.OpenWeather do
   use Tesla
 
-  @api_key "ea749537778f58a145632f8264d5a109"
+  @api_key Application.get_env(:assignment, :openweather_api_key)
   @exclude "minutely,hourly,alerts"
 
   plug Tesla.Middleware.BaseUrl, "https://api.openweathermap.org/data/2.5"
   plug Tesla.Middleware.Query, [appid: @api_key, exclude: @exclude]
   plug Tesla.Middleware.DecodeJson
 
-  def get_by_coordinates(lat, long) do
+  def get_by_geolocation(lat, lon) do
     get("/onecall", query: [lat: lat, lon: lon])
   end
 

@@ -1,5 +1,8 @@
 use Mix.Config
 
+config :assignment,
+  openweather_api_key: "ea749537778f58a145632f8264d5a109"
+
 # Configure your database
 config :assignment, Assignment.Repo,
   username: "postgres",
