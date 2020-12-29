@@ -18,7 +18,7 @@ defmodule Assignment.OpenweatherClient do
   plug Tesla.Middleware.DecodeJson
 
   @doc """
-  Uses openweathermap's onecall location to fetch weather data.
+  Uses openweathermap's onecall API to fetch weather data.
   """
   @spec get_by_geolocation(float, float) :: {:ok, map}
   def get_by_geolocation(lat, lon) do

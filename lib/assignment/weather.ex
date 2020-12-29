@@ -3,10 +3,14 @@ defmodule Assignment.Weather do
   The Weather Context
   """
 
+  require Logger
+
   # plug n' play weather data provider client
+  # can be extended to implement a weather client behaviour
   @client Assignment.OpenweatherClient
 
   # plug n' play weather data formatter
+  # can be extended to implement a weather data formatter behaviour
   @formatter Assignment.OpenweatherFormatter
 
   @doc """
@@ -19,6 +23,7 @@ defmodule Assignment.Weather do
       {:ok, @formatter.format(body)}
     else
       :error ->
+        Logger.error("Error getting weather. Lat: #{lat}, Lon: #{lon}")
         {:error, "An error occured while fetching weather data."}
     end
   end
