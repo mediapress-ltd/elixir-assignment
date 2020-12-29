@@ -8,8 +8,8 @@ defmodule AssignmentWeb.Router do
   scope "/" do
     pipe_through :api
 
-    # forward "/graphiql", Absinthe.Plug.GraphiQL,
-    #   schema: <Enter the name of your Schema here>,
-    #   interface: :playground
+    forward "/graphiql", Absinthe.Plug.GraphiQL,
+      schema: AssignmentWeb.Schema,
+      interface: :simple
   end
 end
