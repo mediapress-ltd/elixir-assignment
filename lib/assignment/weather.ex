@@ -15,13 +15,15 @@ defmodule Assignment.Weather do
       sunset: current["sunset"],
       temperature: current["temp"],
       feels_like: current["feels_like"],
-      weather: format_weather(current["weather"]),
+      weather: Enum.map(current["weather"], &format_weather/1),
       daily: Enum.map(daily, &format_daily/1)
     }
   end
 
-  defp format_weather([weather | _]) do
+  defp format_weather(weather) do
     %{
+      id: weather["id"],
+      icon: weather["icon"],
       main: weather["main"],
       description: weather["description"]
     }

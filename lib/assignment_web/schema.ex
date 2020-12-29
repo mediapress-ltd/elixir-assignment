@@ -21,7 +21,7 @@ defmodule AssignmentWeb.Schema do
     field :sunset, :integer
     field :temperature, :float
     field :feels_like, :float
-    field :weather, :weather_summary
+    field :weather, list_of(:weather_summary)
     field :daily, list_of(:forecast)
   end
 

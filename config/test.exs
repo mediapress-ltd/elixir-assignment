@@ -14,5 +14,7 @@ config :assignment, AssignmentWeb.Endpoint,
   http: [port: 4002],
   server: false
 
+config :tesla, adapter: Tesla.Mock
+
 # Print only warnings and errors during test
 config :logger, level: :warn
